@@ -4,29 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meal Planner</title>
+    <title>Contests</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+    <script src='./index.js'></script>
+  </head>
 <body>
     <nav class = "purple lighten-2">
         <div class="nav-wrapper container">
-          <a href="#" class="brand-logo">Workouts</a>
+          <a href="#" class="brand-logo" id = "home-page" >Contest Lister</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#">Upper</a></li>
-            <li><a href="#">Middle</a></li>
-            <li><a href="#">Lower</a></li>
           </ul>
         </div>
-      </nav>
-      <div class="container">
-        <h1>Get Ready to Be Fit!</h1>
-      </div> 
-      
-    <script src="app.js"> </script>
+    </nav>
+    <div id="contest_list"></div>
+    <div id="insert-contest"></div> 
+    <button id = "back"></button>
+    <button id = '"forward'></button>  
+       
 </body>
 </html>
