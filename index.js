@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let contestContainer = document.querySelector('#contest_list')
     fetchContests()
     addContest()
-    document.querySelector('#contest-form').addEventListener('submit', () => {
+    document.querySelector('#contest-form').addEventListener('submit', (event) => {
         event.preventDefault()
         let name = document.querySelector("comtest name").value 
         let url = document.querySelector("#Url").value 
@@ -48,8 +48,6 @@ const appendContest = (contest) => {
     let in_24_hours = document.createElement("h6")
     let status = document.createElement("h6")
 
-    
-
     contest_name.innerText = contest.name
     url.innerText = contest.url
     start_time.innerText = `Start Time: ${contest.start_time}`
@@ -59,8 +57,58 @@ const appendContest = (contest) => {
     in_24_hours.innerText = `Event In 24 Hours: ${contest.in_24_hours}`
     status.innerText = `Status: ${contest.status}`
 
-    card.append(contest_name, url, start_time, end_time, duration, site, in_24_hours, status)
+    const list = document.getElementById('myList');
+    const input = document.getElementById('itemInput');
+    const button = document.getElementById('addButton');
+    function addItem() {
+        const item = document.createElement('li');
+        item.textContent = input.value;
+        list.appendChild(item);
+    }
+    button.addEventListener('click', addItem);
+    console.log(list)
+    //const btn = document.getElementById('favorites_list');
+    
+    /*let btn = document.createElement('button')
+    btn.innerHTML = "Add to favorites"
+    btn.id = "favorites"
+    const list = []
+    btn.addEventListener("click", function(){
+        list.push(contest.name)
+        
+        
+        
+    })
+    let btn2 = document.getElementById('favorites')
+    btn2.addEventListener("click", function(){
+        console.log(list[0])
+    })   
+    */
+
+
+    
+    
+    //const items = [];
+    //function addItem() {
+        //items.push();
+        //updateList();
+    //}
+    /*function updateList() {
+        const list = document.getElementById("favorites_list");
+        list.innerHTML ='';
+        for (const item of items) {
+            const newItem = document.createElement('li')
+            newItem.innerHTML = item;
+            list.appendChild(newItem)
+        }
+    }
+    */
+
+    
+    card.append(contest_name, url, start_time, end_time, duration, site, in_24_hours, status, button)
     contestContainer.append(card)
+
+
 
 
 }
@@ -130,6 +178,8 @@ const postNewContest = ({contest_name, url, start_time, end_time, duration, site
     .then(resp => resp.json())
     .then(contest => {
         appendContest(contest)
-        event.target.removeEventListener()
+        e.target.removeEventListener()
     })
 }
+
+
