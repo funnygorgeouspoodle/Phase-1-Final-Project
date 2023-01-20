@@ -1,7 +1,12 @@
+//List all upcoming contests
+//User should be able to add their own contest
+//Have a favorites button
+//Have a favorites list
 document.addEventListener("DOMContentLoaded", () => {
     let contestContainer = document.querySelector('#contest_list')
     fetchContests()
     addContest()
+    
     document.querySelector('#contest-form').addEventListener('submit', (event) => {
         event.preventDefault()
         let name = document.querySelector("comtest name").value 
@@ -18,7 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         console.log(contestObj)
         postNewContest(contestObj)
+        
     })
+    addToFavorites()
+    
 
 })
 
@@ -33,7 +41,8 @@ fetch("https://kontests.net/api/v1/all")
 
     })
 }
-
+//Adding items from JSON to the site
+let fav = []
 const appendContest = (contest) => {
     let contestContainer = document.querySelector('#contest_list')
 
@@ -57,64 +66,27 @@ const appendContest = (contest) => {
     in_24_hours.innerText = `Event In 24 Hours: ${contest.in_24_hours}`
     status.innerText = `Status: ${contest.status}`
 
-    const list = document.getElementById('myList');
-    const input = document.getElementById('itemInput');
-    const button = document.getElementById('addButton');
-    function addItem() {
-        const item = document.createElement('li');
-        item.textContent = input.value;
-        list.appendChild(item);
-    }
-    button.addEventListener('click', addItem);
-    console.log(list)
-    //const btn = document.getElementById('favorites_list');
+    let fav_btn = document.createElement('button')
+    fav_btn.id = "favorite buttton"
+    fav_btn.innerHTML = "Add to Favorites" 
+   
     
-    /*let btn = document.createElement('button')
-    btn.innerHTML = "Add to favorites"
-    btn.id = "favorites"
-    const list = []
-    btn.addEventListener("click", function(){
-        list.push(contest.name)
+    fav_btn.addEventListener('click', () => {
+        fav.push(contest.name)
         
         
-        
-    })
-    let btn2 = document.getElementById('favorites')
-    btn2.addEventListener("click", function(){
-        console.log(list[0])
-    })   
-    */
+    }) 
 
-
-    
-    
-    //const items = [];
-    //function addItem() {
-        //items.push();
-        //updateList();
-    //}
-    /*function updateList() {
-        const list = document.getElementById("favorites_list");
-        list.innerHTML ='';
-        for (const item of items) {
-            const newItem = document.createElement('li')
-            newItem.innerHTML = item;
-            list.appendChild(newItem)
-        }
-    }
-    */
-
-    
-    card.append(contest_name, url, start_time, end_time, duration, site, in_24_hours, status, button)
+    card.append(contest_name, url, start_time, end_time, duration, site, in_24_hours, status, fav_btn)
     contestContainer.append(card)
-
-
-
 
 }
 
+
+//Method for posting new card 
 const addContest = () => {
     let container = document.querySelector("#insert-contest")
+    let card = document.createElement("div")
     let form = document.createElement('form')
     form.id = 'contest-form'
     let nameInput = document.createElement('input')
@@ -161,10 +133,13 @@ const addContest = () => {
         endTimeLabel, durationInput, durationLabel, siteInput, siteLabel, in_24_hoursInput, in_24_hoursLabel,
         statusInput, startTimeLabel, button)
     
-    container.append(h2, form)
+    card.append(h2, form)
+    
+    container.append(card)
     
 }
 
+//Posting new contest by user
 const postNewContest = ({contest_name, url, start_time, end_time, duration, site, in_24_hours, status}) => {
     fetch("https://kontests.net/api/v1/all", {
         method: "POST",
@@ -181,5 +156,28 @@ const postNewContest = ({contest_name, url, start_time, end_time, duration, site
         e.target.removeEventListener()
     })
 }
+//Adding favroties button and list
+const addToFavorites = () => {
+    let favoritesContainer = document.querySelector("#favorites_list")
+    let card = document.createElement('div')
+    let favoritesButton = document.createElement('button')
+    favoritesButton.id = "Favorites"
+    favoritesButton.innerHTML = "Favorites"
 
+    let list = document.getElementById("favo_list")
+    list=fav
+    //fav.forEach((item) => {
+    //    let li = document.createElement("li")
+    //    li.innerText = item
+    //    list.appendChild(li)
+    //})
+    
+    favoritesButton.addEventListener('click', () => {
+        
+        alert(list)
+    })
+    card.append(favoritesButton, list)
+    favoritesContainer.append(card)
+}
 
+//Append the contents of fav on the screen.
